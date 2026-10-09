@@ -1,0 +1,100 @@
+{
+  "mode": "live",
+  "configured_daily_cap": 20,
+  "configured_monthly_cap": 200,
+  "public_live_lookup": false,
+  "map_search_enabled": true,
+  "entities": 40,
+  "registry_current_entities": 4,
+  "query_languages": [
+    {
+      "language": "bn",
+      "n": 160
+    },
+    {
+      "language": "en",
+      "n": 160
+    },
+    {
+      "language": "hi",
+      "n": 160
+    },
+    {
+      "language": "hinglish",
+      "n": 160
+    },
+    {
+      "language": "mr",
+      "n": 160
+    },
+    {
+      "language": "ta",
+      "n": 160
+    },
+    {
+      "language": "te",
+      "n": 160
+    }
+  ],
+  "seed_categories": [
+    {
+      "category": "banking",
+      "n": 280
+    },
+    {
+      "category": "ecommerce",
+      "n": 140
+    },
+    {
+      "category": "government",
+      "n": 196
+    },
+    {
+      "category": "logistics",
+      "n": 140
+    },
+    {
+      "category": "payments",
+      "n": 140
+    },
+    {
+      "category": "telecom",
+      "n": 84
+    },
+    {
+      "category": "utilities",
+      "n": 140
+    }
+  ],
+  "specific_intents": [],
+  "runs_by_engine": [
+    {
+      "engine": "google",
+      "status": "failed",
+      "n": 2,
+      "latest": "2026-10-09T14:29:14+00:00"
+    },
+    {
+      "engine": "google",
+      "status": "success",
+      "n": 1,
+      "latest": "2026-10-09T15:40:00+00:00"
+    },
+    {
+      "engine": "google_maps",
+      "status": "failed",
+      "n": 1,
+      "latest": "2026-10-09T13:44:05+00:00"
+    },
+    {
+      "engine": "google_maps",
+      "status": "success",
+      "n": 1,
+      "latest": "2026-10-09T15:40:03+00:00"
+    }
+  ],
+  "advertiser_records": 0,
+  "evaluation_labels": [],
+  "autocomplete_queries": [],
+  "scheduler_lock_exists": false
+}

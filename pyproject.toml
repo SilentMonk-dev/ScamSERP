@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scamserp"
+version = "1.1.0"
+description = "Explainable, conservative search-result audits for Indian help queries"
+requires-python = ">=3.11"
+dependencies = ["fastapi>=0.115,<1", "uvicorn[standard]>=0.34,<1", "httpx>=0.28,<1", "tldextract>=5.3,<6", "phonenumbers>=9,<10", "rapidfuzz>=3.12,<4", "networkx>=3.4,<4", "apscheduler>=3.11,<4", "filelock>=3.18,<4", "python-dotenv>=1,<2"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10", "pytest-cov>=6,<8"]
+
+[project.scripts]
+scamserp = "scamserp.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["scamserp*"]
+
+[tool.setuptools.package-data]
+scamserp = ["static/*", "data/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

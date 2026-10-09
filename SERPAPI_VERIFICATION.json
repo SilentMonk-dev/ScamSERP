@@ -1,0 +1,26 @@
+{
+  "checked_at": "2026-10-09T15:39:57.363351+00:00",
+  "key_present": true,
+  "account_valid": true,
+  "map_search_verified": true,
+  "account_http_status": 200,
+  "searches_left_before_check": 250,
+  "engines": [
+    {
+      "engine": "google",
+      "status": "success",
+      "cached": false,
+      "observations": 21
+    },
+    {
+      "engine": "google_maps",
+      "status": "success",
+      "cached": false,
+      "observations": 20
+    }
+  ],
+  "published_results": 28,
+  "mapped_places": 19,
+  "withheld_for_review": 1,
+  "gaps": []
+}

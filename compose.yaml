@@ -1,0 +1,50 @@
+name: scamserp
+
+x-app: &app
+  image: scamserp:local
+  build: .
+  restart: unless-stopped
+  init: true
+  read_only: true
+  tmpfs:
+    - /tmp:size=64m,mode=1777
+  cap_drop:
+    - ALL
+  security_opt:
+    - no-new-privileges:true
+  environment:
+    SCAMSERP_DATA_DIR: /data
+    SCAMSERP_MODE: ${SCAMSERP_MODE:-demo}
+    SERPAPI_API_KEY: ${SERPAPI_API_KEY:-${SERP_API_KEY:-}}
+    GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY:-${Google_Maps_Api_Key:-}}
+    SCAMSERP_ADMIN_TOKEN: ${SCAMSERP_ADMIN_TOKEN:-}
+    SCAMSERP_DAILY_CAP: ${SCAMSERP_DAILY_CAP:-20}
+    SCAMSERP_MONTHLY_CAP: ${SCAMSERP_MONTHLY_CAP:-200}
+    SCAMSERP_PUBLIC_LIVE: ${SCAMSERP_PUBLIC_LIVE:-false}
+    SCAMSERP_MAP_SEARCH: ${SCAMSERP_MAP_SEARCH:-true}
+    SCAMSERP_MIN_RUNS: ${SCAMSERP_MIN_RUNS:-5}
+    SCAMSERP_RATE_LIMIT: ${SCAMSERP_RATE_LIMIT:-30}
+    SCAMSERP_SCHEDULE_LIMIT: ${SCAMSERP_SCHEDULE_LIMIT:-6}
+    SCAMSERP_SCHEDULE_HOURS: ${SCAMSERP_SCHEDULE_HOURS:-6}
+    SCAMSERP_SCHEDULER: ${SCAMSERP_SCHEDULER:-false}
+    SCAMSERP_ADS_REQUESTS_PER_RUN: ${SCAMSERP_ADS_REQUESTS_PER_RUN:-2}
+  volumes:
+    - scamserp-data:/data
+
+services:
+  web:
+    <<: *app
+    ports:
+      - "127.0.0.1:${SCAMSERP_PORT:-8000}:8000"
+  scheduler:
+    <<: *app
+    profiles: [scheduler]
+    command: ["python", "-m", "scamserp.cli", "scheduler"]
+    healthcheck:
+      disable: true
+    depends_on:
+      web:
+        condition: service_healthy
+
+volumes:
+  scamserp-data:

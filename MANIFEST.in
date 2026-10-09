@@ -1,0 +1,5 @@
+include LICENSE README.md THIRD_PARTY_NOTICES.md .env.example compose.yaml Dockerfile
+recursive-include docs *.md
+recursive-include scripts *.ps1 *.sh
+recursive-include tests *.py *.cjs
+global-exclude .env *.sqlite3 *.json.gz

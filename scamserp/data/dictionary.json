@@ -1,0 +1,24 @@
+{
+  "dataset": "ScamSERP de-identified observations",
+  "license": "CC BY 4.0 for original derived fields. Raw SerpApi and Google-derived content is not redistributed under this license. Review provider terms before redistributing live source data.",
+  "fields": {
+    "observation_id": "Stable HMAC pseudonym; salt private to the deployment",
+    "entity": "Claimed institution, not an accusation against that institution",
+    "category": "Query-library category",
+    "state": "Label for the fixed city proxy; not all searchers in the state",
+    "language": "Google hl language parameter",
+    "observed_date": "UTC date of collection",
+    "kind": "organic, ad, local, autocomplete, paa, related or knowledge",
+    "position": "One-based provider position; ads weighted 1.5",
+    "domain_token": "HMAC of normalized registrable domain; hostname and URL omitted",
+    "phone_tokens": "HMACs of normalized phone identifiers; raw contacts omitted",
+    "risk": "Clamped rule score 0–100; not a fraud probability",
+    "verdict": "Conservative rule ladder; likely-fraud findings require campaign approval",
+    "signals": "Versioned rule signal codes; raw source text omitted",
+    "rule_version": "Scoring rules used for the current result",
+    "synthetic": "True means generated illustrative fixtures, never measured search findings"
+  },
+  "aggregation": "Per-run position-weighted risky share, averaged over complete eligible runs. Exploratory 95% bootstrap clusters by query. Autocomplete, knowledge, PAA and related searches are excluded from the ranked exposure denominator. Runs with disputed or unreviewed ranked findings are withheld entirely. Failed and empty runs are data gaps.",
+  "privacy": "Public exports exclude raw snippets, URLs, phone numbers, advertiser names, raw search archives and user lookup input. HMAC pseudonyms permit linkage and are not guaranteed anonymous. Admin-only raw archives retain collected public source evidence.",
+  "provenance": "Every live run retains a redacted, compressed SerpApi response and its search ID. Demo runs originate from the deterministic fixture generator in seed.py."
+}

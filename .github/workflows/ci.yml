@@ -1,0 +1,59 @@
+name: Verify
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ['3.11', '3.12']
+    runs-on: ${{ matrix.os }}
+    env:
+      SCAMSERP_MODE: demo
+      SCAMSERP_DATA_DIR: ${{ runner.temp }}/scamserp-ci
+      SERPAPI_API_KEY: ''
+      SCAMSERP_ADMIN_TOKEN: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install
+        shell: bash
+        run: |
+          if [ -f requirements.lock ]; then python -m pip install -r requirements.lock; fi
+          python -m pip install -e '.[test]'
+      - name: Dependency consistency
+        run: python -m pip check
+      - name: Tests
+        run: python -m pytest --cov=scamserp --cov-report=term-missing
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: JavaScript syntax
+        shell: bash
+        run: |
+          for script in scamserp/static/*.js; do node --check "$script"; done
+          node --test tests/location-tracker.test.cjs
+      - name: Build distributable
+        run: python -m pip wheel --no-deps . --wheel-dir dist
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build --tag scamserp:ci .
+      - name: Verify non-root container health
+        shell: bash
+        run: |
+          docker run --detach --name scamserp-ci -p 127.0.0.1:8000:8000 scamserp:ci
+          trap 'docker logs scamserp-ci; docker rm -f scamserp-ci' EXIT
+          for attempt in $(seq 1 90); do
+            if curl --fail --silent http://127.0.0.1:8000/healthz; then exit 0; fi
+            sleep 2
+          done
+          exit 1

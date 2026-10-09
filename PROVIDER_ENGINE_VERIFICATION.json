@@ -1,0 +1,22 @@
+[
+  {
+    "engine": "google_local",
+    "run_id": "309c19f2316042aebe8be5849cb760c3",
+    "status": "success",
+    "observations": 20
+  },
+  {
+    "engine": "google_autocomplete",
+    "run_id": "d7cc5397f7484ccc94927ed6e19390e1",
+    "status": "success",
+    "observations": 15
+  },
+  {
+    "engine": "google_ads_transparency_center",
+    "run_id": "da8513a206ef4fdc8639250be78ee00c",
+    "status": "success",
+    "observations": 0,
+    "creative_count": 40,
+    "provider_error_present": false
+  }
+]
